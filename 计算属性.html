@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title></title>
+    <style>
+        	*{
+			padding: 0;
+			margin: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		ul li{
+			margin: 20px 20px;
+			padding: 10px 5px;
+			border-radius: 3px;
+		}
+		ul li.active{
+			background-color:rebeccapurple;
+		}
+    </style>
+</head>
+<body>
+	<div id="app">  
+        <audio :src = 'getCurrentSongSrc' autoplay  controls></audio>
+       </audio>
+       <ul >
+           <li v-for="(item,index)  in musicData"  :class = '{active:currentIndex == index}' @click = 'clickHandler(index)'>
+               <p>歌手:{{item.auther}}</p>
+               <P>{{item.kid}} - 歌名：{{item.name}}</P>
+           </li>
+       </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script type="text/javascript">
+       let  musicData=[          
+            {
+               id:1,name:"我已经爱上你",auther:'二郎',src:'./static/情词尧,二郎 - 我已经爱上你（情词尧／二郎）.mp3'
+            },{
+              id:2,name:"JUNIEL - illa illa",auther:'일라 일라',src:'./static/JUNIEL - illa illa (일라 일라).mp3'
+            }, {
+              id:3,name:"体面",auther:'迟青',src:'./static/迟青 - 体面.mp3'
+            },{
+              id:4,name:"私奔",auther:'曾轶可',src:'./static/曾轶可 - 私奔.mp3'  
+            }
+       ]
+		new Vue({
+			el:'#app',
+			data() {
+                return  {
+                    musicData:musicData,
+                    currentIndex:0
+                   }
+            },
+            computed:{
+				getCurrentSongSrc:function() {
+					// 默认只有getter
+					return this.musicData[this.currentIndex].src
+				}
+			},
+            methods:{
+				clickHandler(index){
+					this.currentIndex = index;
+				}
+			}
+		});
+	</script>
+	
+
+</body>
+</html>
